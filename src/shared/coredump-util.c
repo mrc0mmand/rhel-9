@@ -3,6 +3,7 @@
 #include "coredump-util.h"
 #include "extract-word.h"
 #include "fileio.h"
+#include "stdio-util.h"
 #include "string-table.h"
 
 static const char *const coredump_filter_table[_COREDUMP_FILTER_MAX] = {
