@@ -8,7 +8,9 @@ set -o pipefail
 
 : >/failed
 
-run_subtests
+cat /proc/1/environ | tr '\0' '\n'
+cat /proc/self/environ | tr '\0' '\n'
+. "$(dirname "$0")"/testsuite-74.coredump.sh
 
 touch /testok
 rm /failed

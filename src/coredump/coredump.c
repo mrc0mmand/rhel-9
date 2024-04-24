@@ -1482,9 +1482,13 @@ static int process_kernel(int argc, char* argv[]) {
         if (r < 0)
                 log_debug_errno(r, "Failed to check pidns of crashing process, ignoring: %m");
 
+        log_warning("in_same_namespace() returned %d", r);
+        log_warning("getenv_bool(\"SYSTEMD_COREDUMP_ALLOW_NAMESPACE_CHANGE\") returned %d", getenv_bool("SYSTEMD_COREDUMP_ALLOW_NAMESPACE_CHANGE"));
+
         if (r == 0 && getenv_bool("SYSTEMD_COREDUMP_ALLOW_NAMESPACE_CHANGE") > 0) {
                 int fd;
 
+                log_warning("Opening PID's %d namespace", context.pid);
                 r = namespace_open(context.pid,  NULL, &fd, NULL, NULL, NULL);
                 if (r < 0)
                         return log_error_errno(r, "Failed to open mntns of crashing process: %m");
